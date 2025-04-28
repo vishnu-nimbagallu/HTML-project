@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub - Virtual Study Room</title>
+    <link rel="stylesheet" href="VSR_PROJECT.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+        <div class="login-box">
+            <div class="logo">StudyHub</div>
+            <h1>Welcome Back</h1>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="login-footer">
+                    Don't have an account? <a href="#">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Platform (hidden until login) -->
+    <div class="platform-container" id="platform">
+        <header>
+            <div class="header-left">
+                <div class="logo">StudyHub</div>
+                <nav class="nav-links">
+                    <a href="#">Dashboard</a>
+                    <a href="#">Study Rooms</a>
+                    <a href="#">Resources</a>
+                    <a href="#">Schedule</a>
+                </nav>
+            </div>
+            <div class="user-menu" id="userMenu">
+                <div class="network-status">
+                    <div class="signal green"></div>
+                    <span>Good connection</span>
+                </div>
+                <div class="user-avatar">JS</div>
+                <span>Vishnu Student</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Active Study Rooms</h3>
+                    <div class="study-room active" data-room="cs-group">
+                        <div class="topic">Computer Science Study Group</div>
+                        <div class="members">5 members</div>
+                    </div>
+                    <div class="study-room" data-room="math-group">
+                        <div class="topic">Mathematics Problem Solving</div>
+                        <div class="members">3 members</div>
+                    </div>
+                    <div class="study-room" data-room="lit-group">
+                        <div class="topic">Literature Review Session</div>
+                        <div class="members">7 members</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Your Upcoming Sessions</h3>
+                    <div class="study-room" data-room="physics-group">
+                        <div class="topic">Physics Study Group</div>
+                        <div class="members">Tomorrow, 2:00 PM</div>
+                    </div>
+                    <div class="study-room" data-room="history-group">
+                        <div class="topic">History Discussion</div>
+                        <div class="members">Friday, 4:30 PM</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-accent" style="margin-top: 1rem;" id="createRoomBtn">Create New Room</button>
+            </div>
+
+            <div class="content-area">
+                <div class="video-container" id="videoContainer">
+                    <!-- Video participants will be added here dynamically -->
+                </div>
+
+                <div class="controls">
+                    <div class="tooltip">
+                        <button class="control-btn" id="muteBtn" title="Mute">🎤</button>
+                        <span class="tooltiptext">Mute/Unmute</span>
+                    </div>
+                    <div class="tooltip">
+                        <button class="control-btn" id="videoBtn" title="Video Off">📹</button>
+                        <span class="tooltiptext">Video On/Off</span>
+                    </div>
+                    <div class="tooltip">
+                        <button class="control-btn" id="screenBtn" title="Share Screen">🖥</button>
+                        <span class="tooltiptext">Share Screen</span>
+                    </div>
+                    <div class="tooltip">
+                        <button class="control-btn" id="participantsBtn" title="Participants">👥</button>
+                        <span class="tooltiptext">Participants</span>
+                    </div>
+                    <div class="tooltip">
+                        <button class="control-btn end-call" id="leaveBtn" title="Leave">📞</button>
+                        <span class="tooltiptext">Leave Call</span>
+                    </div>
+                </div>
+
+                <div class="collaboration-tabs">
+                    <div class="tab active" data-tab="documents">Shared Documents</div>
+                    <div class="tab" data-tab="whiteboard">Whiteboard</div>
+                    <div class="tab" data-tab="chat">Chat</div>
+                    <div class="tab" data-tab="resources">Resources</div>
+                </div>
+
+                <div class="collaboration-content" id="collabContent">
+                    <div class="document">
+                        <h4>Algorithms Study Notes</h4>
+                        <div class="document-meta">
+                            <span>Uploaded by Disha</span>
+                            <span>•</span>
+                            <span>2 hours ago</span>
+                        </div>
+                        <p>Notes from our last session covering sorting algorithms and complexity analysis.</p>
+                        <div class="document-actions">
+                            <button>View</button>
+                            <button>Edit</button>
+                            <button>Download</button>
+                        </div>
+                    </div>
+
+                    <div class="document">
+                        <h4>Problem Set Solutions</h4>
+                        <div class="document-meta">
+                            <span>Uploaded by Swamy</span>
+                            <span>•</span>
+                            <span>Yesterday</span>
+                        </div>
+                        <p>Solved problems from chapters 3-5 with detailed explanations.</p>
+                        <div class="document-actions">
+                            <button>View</button>
+                            <button>Edit</button>
+                            <button>Download</button>
+                        </div>
+                    </div>
+
+                    <div class="resource-upload" id="uploadArea">
+                        <p>Drag and drop files here to share with the group</p>
+                        <button class="btn" style="width: auto; margin-top: 0.5rem;">Browse Files</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Permission Dialog -->
+    <div class="permission-dialog" id="permissionDialog">
+        <div class="permission-box">
+            <h2>Camera & Microphone Access</h2>
+            <p>StudyHub needs access to your camera and microphone to enable video participation in study rooms. Please allow access when prompted by your browser.</p>
+            <div class="permission-buttons">
+                <button class="btn" id="allowAccessBtn">Allow Access</button>
+                <button class="btn btn-accent" id="continueWithoutBtn">Continue Without Video</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for creating new room -->
+    <div class="modal" id="createRoomModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Study Room</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <form id="roomForm">
+                <div class="input-group">
+                    <label for="roomName">Room Name</label>
+                    <input type="text" id="roomName" required placeholder="Enter room name">
+                </div>
+                <div class="input-group">
+                    <label for="roomTopic">Topic/Subject</label>
+                    <input type="text" id="roomTopic" required placeholder="Enter topic or subject">
+                </div>
+                <div class="input-group">
+                    <label for="roomPrivacy">Privacy</label>
+                    <select id="roomPrivacy" class="input-group input">
+                        <option value="public">Public (Anyone can join)</option>
+                        <option value="private">Private (Invite only)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-accent">Create Room</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for participants -->
+    <div class="modal" id="participantsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Participants (4)</h2>
+                <button class="close-modal" id="closeParticipantsModal">&times;</button>
+            </div>
+            <div class="participant-list">
+                <div class="participant">
+                    <div class="user-avatar small">JS</div>
+                    <span>Vishnu Student (You)</span>
+                </div>
+                <div class="participant">
+                    <div class="user-avatar small">SM</div>
+                    <span>Disha</span>
+                </div>
+                <div class="participant">
+                    <div class="user-avatar small">MJ</div>
+                    <span>Swamy</span>
+                </div>
+                <div class="participant">
+                    <div class="user-avatar small">ED</div>
+                    <span>Macha</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="VSR_PROJECT.js"></script>
+</body>
+</html>
